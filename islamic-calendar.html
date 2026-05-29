@@ -97,7 +97,6 @@
         <p class="next-prayer-name" id="today-gregorian">Loading...</p>
         <p class="next-prayer-label" style="margin-top:1rem;">Hijri Date</p>
         <p class="next-prayer-time" id="today-hijri" style="font-size:1.75rem;">Loading...</p>
-        <p class="countdown" id="today-moon">&#127761;</p>
       </div>
     </div>
   </section>
@@ -326,14 +325,6 @@ const months = ['January','February','March','April','May','June','July','August
 const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 document.getElementById('today-gregorian').textContent =
   `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-
-/* Moon phase (approximate) */
-const moonPhases = ['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
-const lunarCycle = 29.53;
-const knownNewMoon = new Date('2000-01-06');
-const daysSince = (now - knownNewMoon) / (1000*60*60*24);
-const phase = Math.floor((daysSince % lunarCycle) / lunarCycle * 8);
-document.getElementById('today-moon').textContent = moonPhases[phase % 8] + ' Moon Phase';
 
 /* Default date picker to today */
 const pad = n => String(n).padStart(2,'0');

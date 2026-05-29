@@ -529,6 +529,10 @@ p { font-size: 1rem; color: var(--text-dark); }
 }
 .hero-pw-link:hover { background: rgba(201,168,76,0.15); }
 @media (max-width: 900px) {
+  .hero { min-height: auto; }
+  .hero-slider { position: absolute; inset: 0; }
+  .hero-slide { min-height: 100%; }
+  .hero-body { position: relative; inset: auto; padding: 2.5rem 0; }
   .hero-row { flex-direction: column; gap: 1.5rem; }
   .hero-text-wrap { flex: 1; width: 100%; }
   .hero-widget-col { width: 100%; justify-content: flex-start; }
@@ -1187,7 +1191,10 @@ p { font-size: 1rem; color: var(--text-dark); }
   transition: var(--transition);
   border-left: 4px solid var(--bg-light);
 }
-.date-card.past { border-left-color: var(--text-muted); opacity: 0.7; }
+.date-card.past { 
+  border: 3px dashed var(--text-muted); 
+  opacity: 0.7; 
+}
 .date-card.today { border-left-color: var(--gold-accent); background: #fffbf0; }
 .date-card.future { border-left-color: var(--secondary-teal); }
 .date-badge {
@@ -1561,7 +1568,26 @@ p { font-size: 1rem; color: var(--text-dark); }
     display: none;
   }
   .nav-item.open .dropdown { display: block; }
-  .btn-donate { margin: 0.5rem 1rem; }
+  .btn-donate {
+    margin: 0;
+    background: transparent;
+    color: var(--text-dark) !important;
+    padding: 0.85rem 1rem;
+    border-radius: 6px;
+    font-weight: 400;
+    letter-spacing: normal;
+    font-size: 0.95rem;
+    box-shadow: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+  .btn-donate:hover {
+    background: rgba(27,107,58,0.06);
+    transform: none;
+    box-shadow: none;
+    color: var(--primary-green) !important;
+  }
 
   /* Layouts */
   .welcome-body { grid-template-columns: 1fr; }
@@ -1579,8 +1605,6 @@ p { font-size: 1rem; color: var(--text-dark); }
   .gallery-grid { columns: 2; }
   .benefits-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
-  .hero { min-height: 450px; }
-  .hero-slide { min-height: 450px; }
   .hero-arrow { display: none; }
   .ayat-frame { padding: 1.5rem; }
   .prayer-table th:nth-child(3),
@@ -1598,6 +1622,7 @@ p { font-size: 1rem; color: var(--text-dark); }
   .gallery-grid { columns: 1; }
   h1 { font-size: 1.8rem; }
   .stat-number { font-size: 2.5rem; }
+  .hero-content { padding: 1.5rem 0; }
   .hero-content h1 { font-size: 1.6rem; }
   .next-prayer-time { font-size: 2rem; }
   .hero-btns { flex-direction: column; }

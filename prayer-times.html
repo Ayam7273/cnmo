@@ -209,12 +209,17 @@
     .cin-section[data-scene="dhuhr"] .cin-eyebrow        { color: rgba(8,32,48,0.6); }
 
     @media (max-width: 900px) {
+      .cin-section { margin: 24px; border-radius: 32px; }
       .cin-prayer-strip { grid-template-columns: repeat(3,1fr); }
     }
     @media (max-width: 580px) {
+      .cin-section { margin: 12px; border-radius: 20px; min-height: 94vh; }
       .cin-prayer-strip { grid-template-columns: repeat(2,1fr); }
-      .cin-date-bar { gap: 0.6rem; }
+      .cin-date-bar { gap: 0.6rem; padding: 1rem 1rem 0.5rem; }
       .cin-date-bar button { padding: 0.3rem 0.65rem; font-size: 0.72rem; }
+      .cin-hero { padding: 1rem 1rem 0.75rem; }
+      .cin-strip-wrap { padding: 0 1rem 1.5rem; }
+      .cin-countdown-row { gap: 1rem; padding: 0.6rem 1rem; }
     }
   </style>
 </head>
