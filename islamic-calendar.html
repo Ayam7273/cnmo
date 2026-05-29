@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/cnmo-favicon.svg" type="image/svg+xml">
+  <title>Islamic Calendar - CNMO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="container">
+    <div class="top-bar-left"><i class="fas fa-phone"></i><a href="tel:07896025145">07896025145</a></div>
+    <div class="top-bar-right">
+      <a href="faq.html" style="padding-right: 10px; border-right: 1px solid white">FAQ</a>
+      <a href="contact.html" style="padding-left: 10px; border-left: 1px solid white">CONTACT</a>
+    </div></div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<header>
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a class="nav-logo" href="index.html">
+        <img src="images/cnmo-logo-remove-bg.png" alt="CNMO Logo" style="height:48px;width:auto;object-fit:contain;">
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">CNMO</span>
+          <span class="nav-logo-sub">Council of Nigerian Muslim Organisations</span>
+        </div>
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About Us <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="about.html">Who We Are</a>            <a href="affiliates.html">Affiliates</a><a href="executive.html">List of Executive</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="news.html">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="events.html">Events <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="events.html">Upcoming Events</a>
+            <a href="projects.html">Projects</a>
+            <a href="gallery.html">Gallery</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="prayer-times.html">Prayer Times <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="prayer-times.html">Prayer Times</a>
+            <a href="jummah.html">Jumu'ah</a>
+            <a href="islamic-calendar.html">Calendar</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Get Involved <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="become_friend.html">Become A Friend</a>
+            <a href="become_member.html">Become A Member</a>
+            <a href="volunteer.html">Volunteers</a>
+            <a href="#">Careers</a>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+        <li class="nav-item"><a class="btn-donate" href="#">Donate</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- Page Hero -->
+  <section class="page-hero" aria-label="Islamic Calendar">
+    <div class="container">
+      <h1>Islamic Calendar</h1>
+      <p id="hero-hijri-cal" style="color:rgba(255,255,255,0.85);margin-top:0.4rem;">Loading Hijri date...</p>
+      <p class="breadcrumb" style="margin-top:0.5rem;"><a href="index.html">Home</a> &rsaquo; <span>Islamic Calendar</span></p>
+    </div>
+  </section>
+
+  <!-- Today's Date Card -->
+  <section class="section section-alt">
+    <div class="container" style="max-width:700px;">
+      <h2 class="section-title">Today's Date</h2>
+      <div class="next-prayer-card" style="margin-top:2rem;">
+        <p class="next-prayer-label">Gregorian Date</p>
+        <p class="next-prayer-name" id="today-gregorian">Loading...</p>
+        <p class="next-prayer-label" style="margin-top:1rem;">Hijri Date</p>
+        <p class="next-prayer-time" id="today-hijri" style="font-size:1.75rem;">Loading...</p>
+        <p class="countdown" id="today-moon">&#127761;</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Date Converter -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Date Converter</h2>
+      <p class="section-subtitle">Convert between Gregorian and Hijri calendars</p>
+      <div class="calendar-converter" style="margin-top:2rem;">
+        <div class="converter-tabs">
+          <div class="converter-tab active" data-tab="gToH">Gregorian → Hijri</div>
+          <div class="converter-tab" data-tab="hToG">Hijri → Gregorian</div>
+        </div>
+
+        <!-- Gregorian to Hijri -->
+        <div class="converter-panel active" id="panel-gToH">
+          <label for="g-date">Select Gregorian Date</label>
+          <input type="date" id="g-date">
+          <button class="btn btn-primary" onclick="convertGToH()">Convert <i class="fas fa-exchange-alt"></i></button>
+          <div class="converter-result" id="result-gToH">Hijri date will appear here</div>
+        </div>
+
+        <!-- Hijri to Gregorian -->
+        <div class="converter-panel" id="panel-hToG">
+          <label>Enter Hijri Date</label>
+          <div class="converter-row">
+            <div>
+              <label for="h-day">Day</label>
+              <select id="h-day"></select>
+            </div>
+            <div>
+              <label for="h-month">Month</label>
+              <select id="h-month"></select>
+            </div>
+            <div>
+              <label for="h-year">Year</label>
+              <select id="h-year"></select>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="convertHToG()">Convert <i class="fas fa-exchange-alt"></i></button>
+          <div class="converter-result" id="result-hToG">Gregorian date will appear here</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Islamic Dates 1447 AH -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Key Islamic Dates 1447 AH</h2>
+      <p class="section-subtitle">Important events in the Islamic calendar for this year</p>
+      <div class="dates-list" style="margin-top:2.5rem;">
+
+        <!-- dates will be rendered by JS with status classes -->
+        <div id="dates-container">Loading key dates...</div>
+
+      </div>
+      <p style="text-align:center;margin-top:1.5rem;font-size:0.82rem;color:var(--text-muted);font-style:italic;">
+        <i class="fas fa-info-circle"></i> Dates are approximate and may vary based on local moon sighting.
+      </p>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo"><img src="images/cnmo-logo-remove-bg.png" alt="CNMO" style="height:44px;width:auto;object-fit:contain;filter:brightness(0) invert(1);"><span class="footer-logo-name">CNMO</span></div>
+          <p class="footer-tagline">Unites the ummah from all over the world</p>
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/cnmoorganisation/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/CNMOuk" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Useful Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="executive.html">Executive</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Latest News</h4>
+          <div class="footer-news-item"><p class="footer-news-title">CNMO Election</p><span class="footer-news-date">12 Jun 2024</span></div>
+          <div class="footer-news-item"><p class="footer-news-title">ZAKAT IN RAMADHAN</p><span class="footer-news-date">11 Mar 2025</span></div>
+          <div class="footer-news-item"><p class="footer-news-title">Importance of ZAKATUL FITR</p><span class="footer-news-date">19 May 2025</span></div>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>07896025145</span></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@cnmo.uk</span></div>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>c/o MAN, 365 Old Kent Road, London SE1 5JH</span></div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container"><p>Copyright &copy; CNMO. All Rights Reserved.</p></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+const API_BASE = 'https://api.aladhan.com/v1';
+const HIJRI_MONTHS = [
+  'Muharram','Safar',"Rabi' al-Awwal","Rabi' al-Thani",
+  'Jumada al-Awwal','Jumada al-Thani','Rajab',"Sha'ban",
+  'Ramadan','Shawwal',"Dhul Qi'dah","Dhul Hijjah"
+];
+
+const KEY_DATES = [
+  { event: 'Islamic New Year', hijri: '1 Muharram', gregorian: '2025-06-26', notes: 'Start of 1447 AH' },
+  { event: 'Day of Ashura', hijri: '10 Muharram', gregorian: '2025-07-05', notes: "Fasting - commemorates Prophet Musa (AS)" },
+  { event: "Mawlid al-Nabi", hijri: "12 Rabi' al-Awwal", gregorian: '2025-09-04', notes: 'Birth of Prophet Muhammad (PBUH)' },
+  { event: "Isra' wal-Mi'raj", hijri: '27 Rajab', gregorian: '2026-01-16', notes: 'The Night Journey and Ascension' },
+  { event: "Shab-e-Barat", hijri: "15 Sha'ban", gregorian: '2026-02-03', notes: 'Night of Fortune - prayer and forgiveness' },
+  { event: 'Start of Ramadan', hijri: '1 Ramadan', gregorian: '2026-02-18', notes: 'First day of fasting' },
+  { event: 'Laylatul Qadr', hijri: '27 Ramadan', gregorian: '2026-03-16', notes: 'Night of Power - better than 1000 months' },
+  { event: 'Eid ul-Fitr', hijri: '1 Shawwal', gregorian: '2026-03-20', notes: 'Celebration marking end of Ramadan' },
+  { event: 'Day of Arafah', hijri: '9 Dhul Hijjah', gregorian: '2026-05-26', notes: 'Most important day of Hajj' },
+  { event: 'Eid ul-Adha', hijri: '10 Dhul Hijjah', gregorian: '2026-05-27', notes: 'Festival of Sacrifice' },
+];
+
+function renderDates() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const container = document.getElementById('dates-container');
+  container.innerHTML = KEY_DATES.map(item => {
+    const d = new Date(item.gregorian);
+    const isToday = d.getTime() === today.getTime();
+    const isPast = d < today && !isToday;
+    const cls = isToday ? 'today' : isPast ? 'past' : 'future';
+    const monthStr = d.toLocaleDateString('en-GB',{month:'short'});
+    return `<div class="date-card ${cls}">
+      <div class="date-badge">
+        <div class="date-badge-day">${d.getDate()}</div>
+        <div class="date-badge-month">${monthStr} ${d.getFullYear()}</div>
+      </div>
+      <div class="date-card-info">
+        <h4>${item.event}</h4>
+        <p class="hijri">${item.hijri} 1447 AH</p>
+        <p class="notes">${item.notes}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function loadTodayHijri() {
+  const now = new Date();
+  const ds = `${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()}`;
+  try {
+    const res = await fetch(`${API_BASE}/gToH?date=${ds}`);
+    const data = await res.json();
+    const h = data.data.hijri;
+    const str = `${h.day} ${h.month.en} ${h.year} AH`;
+    document.getElementById('hero-hijri-cal').textContent = str;
+    document.getElementById('today-hijri').textContent = str;
+  } catch(e) {
+    document.getElementById('hero-hijri-cal').textContent = '';
+    document.getElementById('today-hijri').textContent = 'Unable to load';
+  }
+}
+
+async function convertGToH() {
+  const val = document.getElementById('g-date').value;
+  if (!val) return;
+  const [y,m,d] = val.split('-');
+  const res = document.getElementById('result-gToH');
+  res.textContent = 'Converting...';
+  try {
+    const r = await fetch(`${API_BASE}/gToH?date=${d}-${m}-${y}`);
+    const data = await r.json();
+    const h = data.data.hijri;
+    res.textContent = `${h.day} ${h.month.en} ${h.year} AH (${h.date})`;
+  } catch(e) {
+    res.textContent = 'Conversion failed. Check your connection.';
+  }
+}
+
+async function convertHToG() {
+  const day = document.getElementById('h-day').value;
+  const month = document.getElementById('h-month').value;
+  const year = document.getElementById('h-year').value;
+  const res = document.getElementById('result-hToG');
+  res.textContent = 'Converting...';
+  try {
+    const r = await fetch(`${API_BASE}/hToG?date=${day}-${month}-${year}`);
+    const data = await r.json();
+    const g = data.data.gregorian;
+    res.textContent = `${g.day} ${g.month.en} ${g.year} (${g.date})`;
+  } catch(e) {
+    res.textContent = 'Conversion failed. Check your connection.';
+  }
+}
+
+/* Populate dropdowns */
+const dayEl = document.getElementById('h-day');
+for (let i=1;i<=30;i++) dayEl.innerHTML += `<option>${i}</option>`;
+
+const monthEl = document.getElementById('h-month');
+HIJRI_MONTHS.forEach((m,i) => monthEl.innerHTML += `<option value="${i+1}">${m}</option>`);
+
+const yearEl = document.getElementById('h-year');
+for (let y=1444;y<=1453;y++) yearEl.innerHTML += `<option value="${y}">${y}</option>`;
+yearEl.value = '1447';
+
+/* Converter tab toggle */
+document.querySelectorAll('.converter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.converter-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.converter-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+/* Set today's Gregorian date */
+const now = new Date();
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+document.getElementById('today-gregorian').textContent =
+  `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+
+/* Moon phase (approximate) */
+const moonPhases = ['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
+const lunarCycle = 29.53;
+const knownNewMoon = new Date('2000-01-06');
+const daysSince = (now - knownNewMoon) / (1000*60*60*24);
+const phase = Math.floor((daysSince % lunarCycle) / lunarCycle * 8);
+document.getElementById('today-moon').textContent = moonPhases[phase % 8] + ' Moon Phase';
+
+/* Default date picker to today */
+const pad = n => String(n).padStart(2,'0');
+document.getElementById('g-date').value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+
+renderDates();
+loadTodayHijri();
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/cnmo-favicon.svg" type="image/svg+xml">
+  <title>About Us - CNMO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .about-layout { display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start; }
+    .about-sidebar { background: #fff; border-radius: var(--border-radius); box-shadow: 0 4px 20px var(--shadow); padding: 1.75rem; position: sticky; top: calc(var(--navbar-height) + 1rem); }
+    .about-sidebar h4 { color: var(--primary-green); margin-bottom: 1rem; font-size: 1rem; border-bottom: 2px solid var(--gold-accent); padding-bottom: 0.5rem; }
+    .about-sidebar ul { list-style: none; }
+    .about-sidebar ul li { margin-bottom: 0.4rem; }
+    .about-sidebar ul li a { color: var(--text-muted); font-size: 0.88rem; display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0; transition: var(--transition); }
+    .about-sidebar ul li a:hover { color: var(--primary-green); padding-left: 4px; }
+    .about-sidebar ul li a i { font-size: 0.65rem; color: var(--gold-accent); }
+    @media(max-width:768px) { .about-layout { grid-template-columns: 1fr; } .about-sidebar { position: static; } }
+  </style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="container">
+    <div class="top-bar-left"><i class="fas fa-phone"></i><a href="tel:07896025145">07896025145</a></div>
+    <div class="top-bar-right">
+      <a href="faq.html" style="padding-right: 10px; border-right: 1px solid white">FAQ</a>
+      <a href="contact.html" style="padding-left: 10px; border-left: 1px solid white">CONTACT</a>
+    </div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<header>
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a class="nav-logo" href="index.html">
+        <img src="images/cnmo-logo-remove-bg.png" alt="CNMO Logo" style="height:48px;width:auto;object-fit:contain;">
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">CNMO</span>
+          <span class="nav-logo-sub">Council of Nigerian Muslim Organisations</span>
+        </div>
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link active" href="about.html">About Us <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="about.html">Who We Are</a>
+            <a href="affiliates.html">Affiliates</a>
+            <a href="executive.html">List of Executive</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="news.html">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="events.html">Events <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="events.html">Upcoming Events</a>
+            <a href="projects.html">Projects</a>
+            <a href="gallery.html">Gallery</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="prayer-times.html">Prayer Times <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="prayer-times.html">Prayer Times</a>
+            <a href="jummah.html">Jumu'ah</a>
+            <a href="islamic-calendar.html">Calendar</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Get Involved <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="become_friend.html">Become A Friend</a>
+            <a href="become_member.html">Become A Member</a>
+            <a href="volunteer.html">Volunteers</a>
+            <a href="#">Careers</a>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+        <li class="nav-item"><a class="btn-donate" href="#">Donate</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- Page Hero -->
+  <section class="page-hero" aria-label="About Us">
+    <div class="page-hero-img img-placeholder" style="border:none;border-radius:0;min-height:100%;position:absolute;inset:0;">
+      <div class="img-placeholder-inner"></div>
+    </div>
+    <div class="container">
+      <h1>About Us</h1>
+      <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <span>About Us</span></p>
+    </div>
+  </section>
+
+  <!-- About Content -->
+  <section class="section">
+    <div class="container">
+      <div class="about-layout">
+
+        <!-- Main Content -->
+        <div>
+
+          <!-- Quranic Pull-Quotes -->
+          <div class="pullquote">
+            <blockquote>"And Hold fast, all together, by the rope which Allah (stretches out for you) and don't be divided among yourselves."</blockquote>
+            <cite>Al-Qur'an 3:103</cite>
+          </div>
+
+          <div class="pullquote">
+            <blockquote>"Ye are the best of people, evolved for mankind, enjoining what is right, forbidding what is wrong, and believing in Allah."</blockquote>
+            <cite>Al-Qur'an 3:110</cite>
+          </div>
+
+          <div class="islamic-divider" style="margin:2.5rem 0;"><span>&#10022;</span></div>
+
+          <!-- Who We Are -->
+          <h2 style="color:var(--primary-green);margin-bottom:1.25rem;">Who We Are</h2>
+          <p style="color:var(--text-muted);margin-bottom:1rem;">The Council of Nigerian Muslim Organizations (CNMO) understand and believe that:</p>
+
+          <ul style="margin-bottom:2rem;">
+            <li style="padding:0.75rem 0 0.75rem 1.5rem;position:relative;color:var(--text-muted);border-bottom:1px solid rgba(0,0,0,0.06);">
+              <span style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--gold-accent);display:inline-block;"></span>
+              All sovereignty over the entire universe and whatever it contains belongs to Almighty Allah (SWT), and that Al-Islam is the true way of life given by Allah as He mentions in the Holy Qur'an, the final revelation sent for the guidance of mankind.
+            </li>
+            <li style="padding:0.75rem 0 0.75rem 1.5rem;position:relative;color:var(--text-muted);border-bottom:1px solid rgba(0,0,0,0.06);">
+              <span style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--gold-accent);display:inline-block;"></span>
+              All affairs relating to this Islamic Organization shall be organized and established following the guidance of the Holy Qur'an and the Sunnah (examples) of the Holy Prophet Mohammed (SAW).
+            </li>
+            <li style="padding:0.75rem 0 0.75rem 1.5rem;position:relative;color:var(--text-muted);">
+              <span style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--gold-accent);display:inline-block;"></span>
+              The establishment of this Islamic Organization is necessary for the propagation of the religion of Al-Islam as given to us by Allah (SWT). And therefore, we do hereby solemnly and voluntarily submit ourselves to Allah's will, and resolve to abide by the provisions of this Constitution.
+            </li>
+          </ul>
+
+          <!-- Vision Image -->
+          <div class="img-placeholder" data-label="VISION IMAGE - Upload mosque interior or community photo" style="min-height:280px;margin-bottom:2rem;">
+            <div class="img-placeholder-inner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;margin:0 auto 0.6rem;"><path d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/><path d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/></svg>
+              <span>VISION IMAGE - Upload mosque interior or community photo</span>
+              <small>Upload a suitable photo here</small>
+            </div>
+          </div>
+
+          <!-- Our Vision -->
+          <h2 style="color:var(--primary-green);margin-bottom:1.25rem;">Our Vision</h2>
+          <div class="vision-block">
+            <p style="color:var(--text-muted);">This is the paramount reason for the existence of this organization, to promote peace and foster unity among Muslims and the community. To promote and propagate the cause of Islam and make conscious Muslims by teaching and educating member organizations and the community on Islamic ethics and values.</p>
+          </div>
+
+          <div class="islamic-divider" style="margin:2.5rem 0;"><span>&#10022;</span></div>
+
+          <!-- Objectives -->
+          <h2 style="color:var(--primary-green);margin-bottom:1.5rem;">Our Objectives</h2>
+          <p style="color:var(--text-muted);margin-bottom:1.5rem;">The Council of Nigerian Muslims Organisations is an umbrella organization, whose objectives are as follow:</p>
+          <ol class="objectives-list">
+            <li>To serve as a central body for disseminating information within Nigerian Muslim communities and mediate between member organizations.</li>
+            <li>To encourage inter-organizational relationships among member organizations.</li>
+            <li>To promote peace and foster unity among member organizations.</li>
+            <li>To provide educational, spiritual, social, and welfare services for all Muslims.</li>
+            <li>To bridge the gap, both educational and spiritual, between member organizations and the community through the creation of a well-lubricated channel of communication to serve as a basis for effective interaction and exchange of ideas.</li>
+            <li>To promote and propagate the cause of Islam and make conscious Muslims by teaching and educating member organization and the community on Islamic ethics and values.</li>
+            <li>To assist the less privileged in the society irrespective of their religious beliefs, color, gender, or race and within the limits of the resources of the organization.</li>
+            <li>To promote policies and programs that will encourage beneficial relationships amongst member organizations in particular, other Islamic organizations and humanity in general.</li>
+            <li>To support all meaningful and legally accepted activities for the advancement of Islam in the UK and worldwide.</li>
+            <li>To undertake other activities that are beneficial to humanity.</li>
+          </ol>
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="about-sidebar">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html"><i class="fas fa-chevron-right"></i> Who We Are</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Constitution</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Affiliates</a></li>
+            <li><a href="executive.html"><i class="fas fa-chevron-right"></i> List of Executive</a></li>
+            <li><a href="events.html"><i class="fas fa-chevron-right"></i> Upcoming Events</a></li>
+            <li><a href="projects.html"><i class="fas fa-chevron-right"></i> Projects</a></li>
+            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+          </ul>
+          <div style="margin-top:1.5rem;padding:1.25rem;background:var(--bg-light);border-radius:8px;text-align:center;">
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Support CNMO's mission</p>
+            <a href="#" class="btn btn-gold btn-sm" style="width:100%;justify-content:center;">Donate Now</a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="images/cnmo-logo-remove-bg.png" alt="CNMO" style="height:44px;width:auto;object-fit:contain;filter:brightness(0) invert(1);">
+            <span class="footer-logo-name">CNMO</span>
+          </div>
+          <p class="footer-tagline">Unites the ummah from all over the world</p>
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/cnmoorganisation/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/CNMOuk" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Useful Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="executive.html">Executive</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Latest News</h4>
+          <div class="footer-news-item"><p class="footer-news-title">CNMO Election</p><span class="footer-news-date">12 Jun 2024</span></div>
+          <div class="footer-news-item"><p class="footer-news-title">ZAKAT IN RAMADHAN</p><span class="footer-news-date">11 Mar 2025</span></div>
+          <div class="footer-news-item"><p class="footer-news-title">Importance of ZAKATUL FITR</p><span class="footer-news-date">19 May 2025</span></div>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>07896025145</span></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@cnmo.uk</span></div>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>c/o MAN, 365 Old Kent Road, London SE1 5JH</span></div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container"><p>Copyright &copy; CNMO. All Rights Reserved.</p></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

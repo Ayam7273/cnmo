@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/cnmo-favicon.svg" type="image/svg+xml">
+  <title>Prayer Times London - CNMO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== CINEMATIC SECTION (self-contained) ===== */
+    .cin-section {
+      margin: 150px;
+      border-radius: 50px;
+      position: relative;
+      overflow: hidden;
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Sky layers - absolute inside .cin-section */
+    .sky-canvas { position: absolute; inset: 0; z-index: 0; }
+    .sky-layer  { position: absolute; inset: 0; opacity: 0; transition: opacity 2.5s ease; }
+    .sky-layer.active { opacity: 1; }
+
+    .sky-layer[data-scene="fajr"] {
+      background: linear-gradient(180deg,
+        #0d0221 0%, #1a0533 20%, #2d1255 45%,
+        #1a2a5e 70%, #0d1f3c 100%);
+    }
+    .sky-layer[data-scene="sunrise"] {
+      background: linear-gradient(180deg,
+        #1a1a2e 0%, #16213e 18%, #0f3460 33%,
+        #533483 48%, #e94560 63%,
+        #f5a623 78%, #ffd700 90%, #fff8e7 100%);
+    }
+    .sky-layer[data-scene="dhuhr"] {
+      background: linear-gradient(180deg,
+        #0077b6 0%, #00a8e8 30%, #90e0ef 62%,
+        #caf0f8 85%, #e8f8ff 100%);
+    }
+    .sky-layer[data-scene="asr"] {
+      background: linear-gradient(180deg,
+        #1d3557 0%, #457b9d 25%, #a8c5da 55%,
+        #f4a261 75%, #e76f51 90%, #c9572b 100%);
+    }
+    .sky-layer[data-scene="maghrib"] {
+      background: linear-gradient(180deg,
+        #0a0015 0%, #1a0535 15%, #4a1060 33%,
+        #8b1a6b 50%, #e05a2b 67%,
+        #f4a04a 80%, #f9d976 92%, #fef3c7 100%);
+    }
+    .sky-layer[data-scene="isha"] {
+      background: linear-gradient(180deg,
+        #020510 0%, #050c1a 30%, #080f22 62%,
+        #0c1530 85%, #101b3a 100%);
+    }
+
+    /* Stars - absolute inside .cin-section */
+    #cin-stars {
+      position: absolute; inset: 0; z-index: 1;
+      pointer-events: none; transition: opacity 2s ease;
+    }
+    .cin-star {
+      position: absolute; background: #fff; border-radius: 50%;
+      animation: cin-twinkle var(--dur,3s) ease-in-out infinite var(--delay,0s);
+    }
+    @keyframes cin-twinkle {
+      0%,100% { opacity: var(--min-op,0.3); }
+      50%      { opacity: var(--max-op,1);   }
+    }
+
+    /* Hills - absolute inside .cin-section */
+    #cin-hills {
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 35%; z-index: 2; pointer-events: none;
+    }
+    #hill-far, #hill-mid, #hill-near { transition: fill 2.5s ease; }
+
+    /* Vignette - absolute inside .cin-section */
+    .cin-vignette {
+      position: absolute; inset: 0; z-index: 3; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(2,5,15,0.55) 100%);
+    }
+
+    /* Content layer */
+    .cin-content {
+      position: relative; z-index: 10;
+      flex: 1; display: flex; flex-direction: column;
+      color: #fff;
+    }
+
+    /* Date navigator */
+    .cin-date-bar {
+      display: flex; align-items: center; justify-content: center; gap: 1.25rem;
+      padding: 1.5rem 2rem 0.5rem;
+      flex-wrap: wrap;
+    }
+    .cin-date-bar button {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+      color: #fff; padding: 0.38rem 1rem; border-radius: 6px;
+      font-size: 0.8rem; cursor: pointer; transition: background 0.2s;
+      font-family: 'Lato', sans-serif;
+    }
+    .cin-date-bar button:hover { background: rgba(255,255,255,0.25); }
+    .cin-date-display { text-align: center; min-width: 200px; }
+    .cin-gregorian { font-size: 0.9rem; color: rgba(255,255,255,0.92); font-weight: 600; }
+    .cin-hijri     { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-top: 0.15rem; }
+
+    /* Hero: big prayer name */
+    .cin-hero {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 1.5rem 2rem 1rem;
+    }
+    .cin-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); margin-bottom: 1.25rem;
+    }
+    .cin-live-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
+      animation: live-pulse 2s ease-in-out infinite;
+    }
+    @keyframes live-pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.35; transform:scale(0.65); }
+    }
+    .cin-prayer-name {
+      font-family: 'Aref Ruqaa', serif;
+      font-size: clamp(3.5rem, 10vw, 9rem);
+      font-weight: 700; color: #fff; line-height: 1;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.35);
+      transition: color 1.8s ease; margin-bottom: 0.3rem;
+    }
+    .cin-prayer-arabic {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.3rem, 3.5vw, 2.5rem);
+      color: rgba(255,255,255,0.6); margin-bottom: 2rem; direction: rtl;
+      transition: color 1.8s ease;
+    }
+    .cin-countdown-row {
+      background-color: var(--bg-light); 
+      padding: 0.75rem 1.25rem; 
+      border-radius: 8px;
+      display: flex; align-items: center; gap: 2rem;
+      justify-content: center; flex-wrap: wrap;
+    }
+    .cin-countdown-group { text-align: center; }
+    .cin-countdown-label {
+      font-size: 0.7rem; color: var(--text-muted); font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.2rem;
+    }
+    .cin-countdown-timer {
+      font-family: 'DM Mono', monospace; font-size: 1.45rem;
+      color: var(--text-muted); letter-spacing: 0.08em;
+    }
+    .cin-next-time {
+      font-family: 'DM Mono', monospace;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: #C9A84C; font-weight: 500; letter-spacing: 0.05em;
+    }
+
+    /* Prayer strip */
+    .cin-strip-wrap { padding: 0 2rem 2rem; }
+    .cin-strip-rule { height: 1px; background: rgba(255,255,255,0.12); margin-bottom: 1.25rem; }
+    .cin-prayer-strip {
+      /* background-color: rgba(255,255,255,0.08); backdrop-filter: blur(12px); */
+      display: grid; grid-template-columns: repeat(6,1fr);
+      gap: 0.75rem; max-width: 1100px; margin: 0 auto;
+    }
+    .cin-prayer-card {
+      background: rgb(0, 0, 0); backdrop-filter: blur(100px);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
+      padding: 1rem 0.75rem; text-align: center;
+      position: relative; overflow: hidden;
+      transition: background 0.4s, border-color 0.4s;
+    }
+    .cin-prayer-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: transparent; transition: background 0.4s;
+    }
+    .cin-prayer-card.is-current { background: rgba(201,168,76,0.18); border-color: rgba(201,168,76,0.45); }
+    .cin-pc-name {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 0.3rem;
+    }
+    .cin-pc-arabic {
+      font-family: 'Amiri', serif; font-size: 1rem;
+      color: rgba(255,255,255,0.45); margin-bottom: 0.4rem; direction: rtl;
+    }
+    .cin-pc-time {
+      font-family: 'DM Mono', monospace; font-size: 1.15rem;
+      font-weight: 500; color: #fff;
+    }
+    .cin-prayer-card.is-current .cin-pc-time { color: #C9A84C; }
+
+    /* Dhuhr - darken text for legibility on bright sky */
+    .cin-section[data-scene="dhuhr"] .cin-prayer-name    { color: #082030; }
+    .cin-section[data-scene="dhuhr"] .cin-prayer-arabic  { color: rgba(8,32,48,0.6); }
+    .cin-section[data-scene="dhuhr"] .cin-next-time      { color: #0d4a6e; }
+    .cin-section[data-scene="dhuhr"] .cin-countdown-timer{ color: rgba(8,32,48,0.8); }
+    .cin-section[data-scene="dhuhr"] .cin-countdown-label{ color: rgba(8,32,48,0.55); }
+    .cin-section[data-scene="dhuhr"] .cin-eyebrow        { color: rgba(8,32,48,0.6); }
+
+    @media (max-width: 900px) {
+      .cin-prayer-strip { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 580px) {
+      .cin-prayer-strip { grid-template-columns: repeat(2,1fr); }
+      .cin-date-bar { gap: 0.6rem; }
+      .cin-date-bar button { padding: 0.3rem 0.65rem; font-size: 0.72rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="container">
+    <div class="top-bar-left">
+      <i class="fas fa-phone"></i>
+      <a href="tel:07896025145">07896025145</a>
+    </div>
+    <div class="top-bar-right">
+      <a href="faq.html" style="padding-right: 10px; border-right: 1px solid white">FAQ</a>
+      <a href="contact.html" style="padding-left: 10px; border-left: 1px solid white">CONTACT</a>
+    </div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<header>
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a class="nav-logo" href="index.html">
+        <img src="images/cnmo-logo-remove-bg.png" alt="CNMO Logo" style="height:48px;width:auto;object-fit:contain;">
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">CNMO</span>
+          <span class="nav-logo-sub">Council of Nigerian Muslim Organisations</span>
+        </div>
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About Us <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="about.html">Who We Are</a>
+            <a href="affiliates.html">Affiliates</a>
+            <a href="executive.html">List of Executive</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="news.html">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="events.html">Events <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="events.html">Upcoming Events</a>
+            <a href="projects.html">Projects</a>
+            <a href="gallery.html">Gallery</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="prayer-times.html">Prayer Times <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="prayer-times.html">Prayer Times</a>
+            <a href="jummah.html">Jumu'ah</a>
+            <a href="islamic-calendar.html">Calendar</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Get Involved <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="become_friend.html">Become A Friend</a>
+            <a href="become_member.html">Become A Member</a>
+            <a href="volunteer.html">Volunteers</a>
+            <a href="#">Careers</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn-donate" href="#">Donate</a>
+        </li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- Page Hero -->
+  <section class="page-hero" aria-label="Prayer Times">
+    <div class="container">
+      <h1>Prayer Times - London</h1>
+      <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <span>Prayer Times</span></p>
+    </div>
+  </section>
+
+  <!-- Cinematic Prayer Section -->
+  <section class="cin-section" id="cin-section" data-scene="isha">
+
+    <!-- Sky -->
+    <div class="sky-canvas" id="sky-canvas">
+      <div class="sky-layer" data-scene="fajr"></div>
+      <div class="sky-layer" data-scene="sunrise"></div>
+      <div class="sky-layer" data-scene="dhuhr"></div>
+      <div class="sky-layer" data-scene="asr"></div>
+      <div class="sky-layer" data-scene="maghrib"></div>
+      <div class="sky-layer" data-scene="isha"></div>
+    </div>
+
+    <!-- Stars -->
+    <div id="cin-stars"></div>
+
+    <!-- Hills -->
+    <svg id="cin-hills" viewBox="0 0 1440 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path id="hill-far"  d="M0,300 L0,180 C100,140 200,120 320,130 C440,140 500,160 640,150 C780,140 900,110 1040,120 C1180,130 1300,150 1440,140 L1440,300 Z"/>
+      <path id="hill-mid"  d="M0,300 L0,220 C80,200 180,185 290,195 C400,205 480,230 600,220 C720,210 830,185 960,195 C1090,205 1220,225 1340,215 L1440,208 L1440,300 Z"/>
+      <path id="hill-near" d="M0,300 L0,255 C60,248 130,240 220,248 C310,256 380,270 500,262 C620,254 700,238 820,245 C940,252 1040,268 1160,260 C1280,252 1370,242 1440,238 L1440,300 Z"/>
+    </svg>
+
+    <!-- Vignette -->
+    <div class="cin-vignette"></div>
+
+    <!-- Content -->
+    <div class="cin-content">
+
+      <!-- Date Navigator -->
+      <div class="cin-date-bar">
+        <button id="prev-day"><i class="fas fa-chevron-left"></i> Previous</button>
+        <div class="cin-date-display">
+          <p class="cin-gregorian" id="display-gregorian">Loading…</p>
+          <p class="cin-hijri" id="display-hijri"></p>
+        </div>
+        <button id="today-btn">Today</button>
+        <button id="next-day">Next <i class="fas fa-chevron-right"></i></button>
+      </div>
+
+      <!-- Hero -->
+      <div class="cin-hero">
+        <div class="cin-eyebrow">
+          <span class="cin-live-dot"></span>
+          <span id="cin-eyebrow-label">Live Prayer Times - London</span>
+        </div>
+        <h2 class="cin-prayer-name" id="cin-prayer-name">-</h2>
+        <p class="cin-prayer-arabic" id="cin-prayer-arabic"></p>
+        <div class="cin-countdown-row">
+          <div class="cin-countdown-group">
+            <p class="cin-countdown-label" id="cin-countdown-label">Next Prayer In</p>
+            <p class="cin-countdown-timer" id="cin-countdown">00:00:00</p>
+          </div>
+          <p class="cin-next-time" id="cin-next-time">--:--</p>
+        </div>
+      </div>
+
+      <!-- Prayer Strip -->
+      <div class="cin-strip-wrap">
+        <div class="cin-strip-rule"></div>
+        <div class="cin-prayer-strip" id="cin-prayer-strip">
+          <p style="color:rgba(255,255,255,0.45);text-align:center;grid-column:1/-1;padding:1rem 0;">
+            <i class="fas fa-spinner fa-spin"></i> Loading…
+          </p>
+        </div>
+      </div>
+
+    </div><!-- /cin-content -->
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="images/cnmo-logo-remove-bg.png" alt="CNMO" style="height:44px;width:auto;object-fit:contain;filter:brightness(0) invert(1);">
+            <span class="footer-logo-name">CNMO</span>
+          </div>
+          <p class="footer-tagline">Unites the ummah from all over the world</p>
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/cnmoorganisation/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/CNMOuk" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Useful Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="executive.html">Executive</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Latest News</h4>
+          <div class="footer-news-item">
+            <p class="footer-news-title">CNMO Election</p>
+            <span class="footer-news-date">12 Jun 2024</span>
+          </div>
+          <div class="footer-news-item">
+            <p class="footer-news-title">ZAKAT IN RAMADHAN</p>
+            <span class="footer-news-date">11 Mar 2025</span>
+          </div>
+          <div class="footer-news-item">
+            <p class="footer-news-title">Importance of ZAKATUL FITR</p>
+            <span class="footer-news-date">19 May 2025</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>07896025145</span></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@cnmo.uk</span></div>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>c/o MAN, 365 Old Kent Road, London SE1 5JH</span></div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>Copyright &copy; CNMO. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+const API_BASE = 'https://api.aladhan.com/v1';
+const PRAYERS = ['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'];
+const ARABIC = {
+  Fajr:'الفَجْر', Sunrise:'الشُّرُوق', Dhuhr:'الظُّهْر',
+  Asr:'العَصْر', Maghrib:'المَغْرِب', Isha:'العِشَاء'
+};
+const DISPLAY_NAME = {
+  Fajr:'Fajr', Sunrise:'Shurūq', Dhuhr:'Dhuhr',
+  Asr:'Asr', Maghrib:'Maghrib', Isha:'Isha'
+};
+const HILL_COLORS = {
+  fajr:   { far:'#1a0a2e', mid:'#110420', near:'#0a0215' },
+  sunrise:{ far:'#1a1230', mid:'#0f0c1e', near:'#080612' },
+  dhuhr:  { far:'#1a4d2e', mid:'#143d24', near:'#0d2918' },
+  asr:    { far:'#2c1f0e', mid:'#1e1509', near:'#130e04' },
+  maghrib:{ far:'#1f0838', mid:'#130325', near:'#0a0118' },
+  isha:   { far:'#080c1a', mid:'#050810', near:'#020408' }
+};
+const STAR_OPACITY = { fajr:0.8, sunrise:0.2, dhuhr:0, asr:0, maghrib:0.5, isha:1 };
+const SCENE_MAP = { Fajr:'fajr', Sunrise:'sunrise', Dhuhr:'dhuhr', Asr:'asr', Maghrib:'maghrib', Isha:'isha' };
+
+let currentDate = new Date();
+let currentTimings = null;
+let countdownTimer = null;
+let activeScene = '';
+
+// ---- Generate stars ----
+(function() {
+  const c = document.getElementById('cin-stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('span');
+    s.className = 'cin-star';
+    const sz = (Math.random() * 2.2 + 0.5).toFixed(1);
+    s.style.cssText = `left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*70).toFixed(1)}%;width:${sz}px;height:${sz}px;--dur:${(Math.random()*3+2).toFixed(1)}s;--delay:-${(Math.random()*5).toFixed(1)}s;--min-op:${(Math.random()*0.2+0.1).toFixed(2)};--max-op:${(Math.random()*0.5+0.5).toFixed(2)};`;
+    c.appendChild(s);
+  }
+})();
+
+// ---- Scene switching ----
+function setScene(scene) {
+  if (scene === activeScene) return;
+  activeScene = scene;
+  const section = document.getElementById('cin-section');
+  section.dataset.scene = scene;
+  document.querySelectorAll('.sky-layer').forEach(l => l.classList.remove('active'));
+  const layer = document.querySelector(`.sky-layer[data-scene="${scene}"]`);
+  if (layer) layer.classList.add('active');
+  document.getElementById('cin-stars').style.opacity = STAR_OPACITY[scene] ?? 1;
+  const hc = HILL_COLORS[scene] || HILL_COLORS.isha;
+  document.getElementById('hill-far').style.fill  = hc.far;
+  document.getElementById('hill-mid').style.fill  = hc.mid;
+  document.getElementById('hill-near').style.fill = hc.near;
+}
+
+function getCurrentScene(timings, now) {
+  let scene = 'isha';
+  for (let i = PRAYERS.length - 1; i >= 0; i--) {
+    if (now >= parseTime(timings[PRAYERS[i]] || timings.Dhuhr, now)) {
+      scene = SCENE_MAP[PRAYERS[i]] || 'isha';
+      break;
+    }
+  }
+  return scene;
+}
+
+// ---- Helpers ----
+function parseTime(str, refDate) {
+  const [h, m] = str.split(':').map(Number);
+  const d = new Date(refDate);
+  d.setHours(h, m, 0, 0);
+  return d;
+}
+function formatDate(d) { return `${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}`; }
+function formatGregorian(d) {
+  return d.toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+}
+
+// ---- Prayer strip ----
+function renderStrip(timings, currentPrayer) {
+  const strip = document.getElementById('cin-prayer-strip');
+  strip.innerHTML = '';
+  PRAYERS.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'cin-prayer-card' + (p === currentPrayer ? ' is-current' : '');
+    card.id = 'cpc-' + p;
+    card.innerHTML = `<p class="cin-pc-name">${DISPLAY_NAME[p]}</p><p class="cin-pc-arabic">${ARABIC[p]}</p><p class="cin-pc-time">${timings[p] || timings.Dhuhr}</p>`;
+    strip.appendChild(card);
+  });
+}
+
+function updateStrip(currentPrayer) {
+  document.querySelectorAll('.cin-prayer-card').forEach(c => {
+    c.classList.toggle('is-current', c.id === 'cpc-' + currentPrayer);
+  });
+}
+
+// ---- Countdown tick ----
+function tick(timings, forDate) {
+  const now = new Date();
+  if (forDate.toDateString() !== now.toDateString()) return;
+
+  const pList = PRAYERS.map(p => ({ name:p, time: parseTime(timings[p]||timings.Dhuhr, now) }));
+  const next = pList.find(p => p.time > now) || pList[0];
+
+  setScene(getCurrentScene(timings, now));
+
+  document.getElementById('cin-prayer-name').textContent   = DISPLAY_NAME[next.name];
+  document.getElementById('cin-prayer-arabic').textContent = ARABIC[next.name] || '';
+  document.getElementById('cin-next-time').textContent     = next.time.toTimeString().slice(0,5);
+
+  const diff = (next.time - now + 86400000) % 86400000;
+  const h = Math.floor(diff/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  document.getElementById('cin-countdown').textContent =
+    `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+  updateStrip(next.name);
+}
+
+// ---- Load for date ----
+async function fetchPrayerTimes(date) {
+  try {
+    const res = await fetch(`${API_BASE}/timingsByCity/${formatDate(date)}?city=London&country=GB&method=2`);
+    return (await res.json()).data;
+  } catch(e) { return null; }
+}
+
+async function loadForDate(date) {
+  document.getElementById('cin-prayer-name').textContent = '…';
+  document.getElementById('cin-prayer-strip').innerHTML =
+    '<p style="color:rgba(255,255,255,0.45);text-align:center;grid-column:1/-1;padding:1.5rem 0;"><i class="fas fa-spinner fa-spin"></i></p>';
+
+  const data = await fetchPrayerTimes(date);
+  if (!data) {
+    document.getElementById('cin-prayer-name').textContent = 'Error';
+    document.getElementById('cin-prayer-strip').innerHTML =
+      '<p style="color:#f87171;text-align:center;grid-column:1/-1;padding:1.5rem 0;">Failed to load. Please check your connection.</p>';
+    return;
+  }
+
+  currentTimings = data.timings;
+  document.getElementById('display-gregorian').textContent = formatGregorian(date);
+  const hijri = data.date.hijri;
+  document.getElementById('display-hijri').textContent = `${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
+
+  const isToday = date.toDateString() === new Date().toDateString();
+  const now = new Date();
+  const pList = PRAYERS.map(p => ({ name:p, time: parseTime(data.timings[p]||data.timings.Dhuhr, isToday?now:date) }));
+  const displayed = isToday ? (pList.find(p=>p.time>now)||pList[0]) : pList[0];
+
+  renderStrip(data.timings, displayed.name);
+
+  if (isToday) {
+    document.getElementById('cin-countdown-label').textContent = 'Next Prayer In';
+    document.getElementById('cin-eyebrow-label').textContent  = 'Live Prayer Times - London';
+    tick(data.timings, date);
+    if (countdownTimer) clearInterval(countdownTimer);
+    countdownTimer = setInterval(() => tick(data.timings, date), 1000);
+  } else {
+    if (countdownTimer) clearInterval(countdownTimer);
+    setScene('isha');
+    document.getElementById('cin-prayer-name').textContent   = 'Prayer Times';
+    document.getElementById('cin-prayer-arabic').textContent = 'مَوَاقِيت الصَّلَاة';
+    document.getElementById('cin-next-time').textContent     = '--:--';
+    document.getElementById('cin-countdown-label').textContent = formatGregorian(date).split(',')[0];
+    document.getElementById('cin-countdown').textContent    = '--:--:--';
+    document.getElementById('cin-eyebrow-label').textContent = 'Prayer Times - London';
+  }
+}
+
+document.getElementById('prev-day').addEventListener('click', () => { currentDate.setDate(currentDate.getDate()-1); loadForDate(currentDate); });
+document.getElementById('next-day').addEventListener('click', () => { currentDate.setDate(currentDate.getDate()+1); loadForDate(currentDate); });
+document.getElementById('today-btn').addEventListener('click', () => { currentDate = new Date(); loadForDate(currentDate); });
+
+setScene('isha');
+loadForDate(currentDate);
+</script>
+</body>
+</html>
