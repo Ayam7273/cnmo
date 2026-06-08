@@ -1380,12 +1380,13 @@ p { font-size: 1rem; color: var(--text-dark); }
    ============================================================ */
 .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
 .benefit-card {
-  background: #fff;
+  background: var(--bg-light);
   border-radius: var(--border-radius);
   padding: 2rem;
   text-align: center;
   box-shadow: 0 4px 20px var(--shadow);
   transition: var(--transition);
+  border: 3px dashed rgba(0,0,0,0.1);
 }
 .benefit-card:hover { transform: translateY(-3px); }
 .benefit-icon {
