@@ -24,17 +24,6 @@
 </head>
 <body>
 
-<!-- Top Bar -->
-<div class="top-bar">
-  <div class="container">
-    <div class="top-bar-left"><i class="fas fa-phone"></i><a href="tel:07896025145">07896025145</a></div>
-    <div class="top-bar-right">
-      <a href="faq.html" style="padding-right: 10px; border-right: 1px solid white">FAQ</a>
-      <a href="contact.html" style="padding-left: 10px; border-left: 1px solid white">CONTACT</a>
-    </div>
-  </div>
-</div>
-
 <!-- Navbar -->
 <header>
   <nav class="navbar" role="navigation" aria-label="Main navigation">
@@ -57,7 +46,11 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="news.html">News</a>
+          <a class="nav-link" href="news.html">News <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="news.html">Latest News</a>
+            <a href="bulletin.html">Bulletins</a>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="events.html">Events <i class="fas fa-chevron-down"></i></a>
@@ -95,11 +88,10 @@
 <main>
 
   <!-- Page Hero -->
-  <section class="page-hero" aria-label="About Us">
-    <img src="images/about-hero.jpg" alt="" class="page-hero-img" style="width:100%;height:100%;object-fit:cover;">
+  <section class="page-hero" aria-label="About Us" style="background:linear-gradient(135deg, #c9a84c 0%, var(--secondary-teal) 100%)">
     <div class="container">
       <h1>About Us</h1>
-      <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <span>About Us</span></p>
+      <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <span style="color:var(--primary-green);">About Us</span></p>
     </div>
   </section>
 

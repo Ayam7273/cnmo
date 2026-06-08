@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="images/cnmo-favicon.svg" type="image/svg+xml">
-  <title>Contact Us - CNMO</title>
+  <title>Bulletins - CNMO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -28,11 +28,14 @@
         <li class="nav-item">
           <a class="nav-link" href="about.html">About Us <i class="fas fa-chevron-down"></i></a>
           <div class="dropdown">
-            <a href="about.html">Who We Are</a>            <a href="affiliates.html">Affiliates</a><a href="executive.html">List of Executive</a><a href="faq.html">FAQ</a>
+            <a href="about.html">Who We Are</a>
+            <a href="affiliates.html">Affiliates</a>
+            <a href="executive.html">List of Executive</a>
+            <a href="faq.html">FAQ</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="news.html">News <i class="fas fa-chevron-down"></i></a>
+          <a class="nav-link active" href="news.html">News <i class="fas fa-chevron-down"></i></a>
           <div class="dropdown">
             <a href="news.html">Latest News</a>
             <a href="bulletin.html">Bulletins</a>
@@ -59,11 +62,16 @@
           <div class="dropdown">
             <a href="become_friend.html">Become A Friend</a>
             <a href="become_member.html">Become A Member</a>
-            <a href="volunteer.html">Volunteers</a><a href="#">Careers</a>
+            <a href="volunteer.html">Volunteers</a>
+            <a href="#">Careers</a>
           </div>
         </li>
-        <li class="nav-item"><a class="nav-link active" href="contact.html">Contact Us</a></li>
-        <li class="nav-item"><a class="btn-donate" href="#">Donate</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn-donate" href="#">Donate</a>
+        </li>
       </ul>
       <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </div>
@@ -71,97 +79,79 @@
 </header>
 
 <main>
-  <!-- Page Hero -->
-  <section class="page-hero" aria-label="Contact" style="background:linear-gradient(135deg, #c9a84c 0%, var(--secondary-teal) 100%)">
+  <section class="page-hero" aria-label="Bulletin">
     <div class="container">
-      <h1>Contact Us</h1>
-      <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <span style="color:var(--primary-green);">Contact</span></p>
+      <h1>Bulletins</h1>
+      <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <a href="news.html">News</a> &rsaquo; <span>Bulletins</span></p>
     </div>
   </section>
 
-  <!-- Contact Section -->
   <section class="section">
     <div class="container">
-      <div class="contact-grid">
+      <h2 class="section-title">CNMO Bulletins</h2>
+      <p class="section-subtitle">Browse our latest newsletters and community bulletins, prepared for Nigerian Muslims in the UK.</p>
+      <div class="grid-2" style="margin-top:2.5rem;">
 
-        <!-- Contact Info -->
-        <div>
-          <h3>Get in Touch</h3>
-          <p style="color:var(--text-muted);margin-bottom:2rem;">We'd love to hear from you. Whether you have questions about our events, membership, or projects, our team is ready to assist.</p>
-
-          <div class="contact-detail">
-            <i class="fas fa-phone"></i>
-            <div class="contact-detail-content">
-              <label>Phone</label>
-              <p><a href="tel:07896025145">07896025145</a></p>
-            </div>
+        <article class="card">
+          <img src="images/bulletins/1641237300Election_Flyer.jpg" alt="Election Flyer" class="card-img" style="height:260px;object-fit:cover;object-position:top;display:block;width:100%;">
+          <div class="card-body">
+            <span class="card-tag">Bulletin</span>
+            <span class="card-date">Election 2025</span>
+            <h3 class="card-title">CNMO Election Bulletin</h3>
+            <p class="card-text">Details and timelines for the CNMO election process shared with our member organisations.</p>
+            <a href="images/bulletins/1641237300Election_Flyer.jpg" target="_blank" class="btn btn-outline btn-sm">Open Bulletin</a>
           </div>
+        </article>
 
-          <div class="contact-detail">
-            <i class="fas fa-envelope"></i>
-            <div class="contact-detail-content">
-              <label>Email</label>
-              <p><a href="mailto:info@cnmo.uk">info@cnmo.uk</a></p>
-            </div>
+        <article class="card">
+          <img src="images/bulletins/1741669625CNMO-Newsletter1-1.jpg" alt="CNMO Newsletter Issue 1" class="card-img" style="height:260px;object-fit:cover;object-position:top;display:block;width:100%;">
+          <div class="card-body">
+            <span class="card-tag">Newsletter</span>
+            <span class="card-date">Issue 1</span>
+            <h3 class="card-title">CNMO Newsletter Issue 1</h3>
+            <p class="card-text">The first newsletter issue covering community news, events, and upcoming activities.</p>
+            <a href="images/bulletins/1741669625CNMO-Newsletter1-1.jpg" target="_blank" class="btn btn-outline btn-sm">Open Bulletin</a>
           </div>
+        </article>
 
-          <div class="contact-detail">
-            <i class="fas fa-map-marker-alt"></i>
-            <div class="contact-detail-content">
-              <label>Address</label>
-              <p>365 Old Kent Rd, London SE1 5JH, United Kingdom</p>
-            </div>
+        <article class="card">
+          <img src="images/bulletins/CNMO Newsletter Dhul Hijah.png" alt="Dhul Hijjah Newsletter" class="card-img" style="height:260px;object-fit:cover;object-position:top;display:block;width:100%;">
+          <div class="card-body">
+            <span class="card-tag">Newsletter</span>
+            <span class="card-date">Dhul Hijjah</span>
+            <h3 class="card-title">Dhul Hijjah Newsletter</h3>
+            <p class="card-text">Insights and guidance for the blessed month of Dhul Hijjah, shared with the community.</p>
+            <a href="images/bulletins/CNMO Newsletter Dhul Hijah.png" target="_blank" class="btn btn-outline btn-sm">Open Bulletin</a>
           </div>
+        </article>
 
-          <div style="margin-top:2rem;">
-            <h4 style="color:var(--primary-green);margin-bottom:1rem;">Follow Us</h4>
-            <div style="display:flex;gap:0.75rem;">
-              <a href="https://www.facebook.com/cnmoorganisation/" target="_blank" rel="noopener noreferrer" class="footer-social-link" style="background:var(--primary-green);" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-              <a href="https://twitter.com/CNMOuk" target="_blank" rel="noopener noreferrer" class="footer-social-link" style="background:var(--primary-green);" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            </div>
+        <article class="card">
+          <img src="images/bulletins/CNMO Newsletter-4_page-0001.jpg" alt="Newsletter 4" class="card-img" style="height:260px;object-fit:cover;object-position:top;display:block;width:100%;">
+          <div class="card-body">
+            <span class="card-tag">Newsletter</span>
+            <span class="card-date">Issue 4</span>
+            <h3 class="card-title">CNMO Newsletter Issue 4</h3>
+            <p class="card-text">The latest community update with announcements, guidance, and events from CNMO.</p>
+            <a href="images/bulletins/CNMO Newsletter-4_page-0001.jpg" target="_blank" class="btn btn-outline btn-sm">Open Bulletin</a>
           </div>
+        </article>
 
-        </div>
-
-        <!-- Contact Form -->
-        <div class="contact-form">
-          <h3 style="color:var(--primary-green);margin-bottom:1.5rem;">Send a Message</h3>
-          <form data-validate id="contact-form">
-            <div class="form-group">
-              <label for="full-name">Full Name <span style="color:#e53e3e;">*</span></label>
-              <input type="text" id="full-name" name="full-name" placeholder="Your full name" required>
-              <span class="form-error">This field is required.</span>
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address <span style="color:#e53e3e;">*</span></label>
-              <input type="email" id="email" name="email" placeholder="your@email.com" required>
-              <span class="form-error">Please enter a valid email address.</span>
-            </div>
-            <div class="form-group">
-              <label for="subject">Subject <span style="color:#e53e3e;">*</span></label>
-              <input type="text" id="subject" name="subject" placeholder="What is your message about?" required>
-              <span class="form-error">This field is required.</span>
-            </div>
-            <div class="form-group">
-              <label for="message">Message <span style="color:#e53e3e;">*</span></label>
-              <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
-              <span class="form-error">This field is required.</span>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
-              Send Message <i class="fas fa-paper-plane"></i>
-            </button>
-            <div class="form-success" style="display:none;">
-              <i class="fas fa-check-circle"></i> Thank you! Your message has been sent. We will get back to you soon.
-            </div>
-          </form>
-        </div>
+        <article class="card">
+          <img src="images/bulletins/Dhul Qaadah.png" alt="Dhul Qaadah Bulletin" class="card-img" style="height:260px;object-fit:cover;object-position:top;display:block;width:100%;">
+          <div class="card-body">
+            <span class="card-tag">Bulletin</span>
+            <span class="card-date">Dhul Qaadah</span>
+            <h3 class="card-title">Dhul Qaadah Bulletin</h3>
+            <p class="card-text">Important updates and reflections for Dhul Qaadah, shared with our wider membership.</p>
+            <a href="images/bulletins/Dhul Qaadah.png" target="_blank" class="btn btn-outline btn-sm">Open Bulletin</a>
+          </div>
+        </article>
 
       </div>
     </div>
   </section>
 </main>
 
-<!-- Footer -->
 <footer>
   <div class="footer-main">
     <div class="container">

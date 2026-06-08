@@ -95,29 +95,6 @@ p { font-size: 1rem; color: var(--text-dark); }
 }
 
 /* ============================================================
-   TOP UTILITY BAR
-   ============================================================ */
-.top-bar {
-  background: var(--primary-green);
-  color: #fff;
-  font-size: 0.82rem;
-  font-family: var(--font-body);
-  font-weight: 400;
-  padding: 0.45rem 0;
-}
-.top-bar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.top-bar a { color: #fff; opacity: 0.9; transition: opacity 0.2s; }
-.top-bar a:hover { opacity: 1; }
-.top-bar-left { display: flex; align-items: center; gap: 0.5rem; }
-.top-bar-left i { font-size: 0.75rem; }
-.top-bar-right { display: flex; }
-.top-bar-right a { font-weight: 700; letter-spacing: 0.04em;  }
-
-/* ============================================================
    NAVBAR
    ============================================================ */
 .navbar {
@@ -1552,7 +1529,6 @@ p { font-size: 1rem; color: var(--text-dark); }
    ============================================================ */
 @media (max-width: 768px) {
   :root { --navbar-height: 64px; }
-  .top-bar { display: none; }
 
   /* Navbar mobile */
   .nav-toggle { display: flex; }
@@ -1663,20 +1639,29 @@ p { font-size: 1rem; color: var(--text-dark); }
   border: 2px dashed var(--primary-green);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .affiliate-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+  background-color: var(--primary-green);
 }
+
+.affiliate-card:hover h4,
+.affiliate-card:hover .affiliate-location {
+  color: #fff;
+}
+
 .affiliate-icon {
   width: 52px;
   height: 52px;
-  background: rgba(27,107,58,0.1);
+  background: var(--primary-green);
+  border: 2px solid #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1rem;
-  color: var(--primary-green);
+  color: #fff;
   font-size: 1.25rem;
 }
 .affiliate-card h4 {
@@ -1688,7 +1673,7 @@ p { font-size: 1rem; color: var(--text-dark); }
 }
 .affiliate-location {
   font-size: 0.82rem;
-  color: var(--text-muted);
+  color: var(--text-dark);
   display: flex;
   align-items: center;
   justify-content: center;
