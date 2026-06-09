@@ -1,0 +1,345 @@
+/* ============================================================
+   CNMO Animation System — vanilla CSS keyframes + utilities
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   PART 1 — HOMEPAGE LOADER OVERLAY
+   ---------------------------------------------------------- */
+.cnmo-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a3c34;
+  pointer-events: all;
+  overflow: hidden;
+}
+
+.cnmo-loader-glow {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(76, 175, 80, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cnmo-loader-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.cnmo-loader-logo {
+  width: 96px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.82);
+}
+
+.cnmo-loader-name {
+  font-family: 'Aref Ruqaa', Georgia, serif;
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  margin: 1.25rem 0 1.75rem;
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.cnmo-loader-bar-track {
+  width: 200px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.cnmo-loader-bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #4caf50;
+  border-radius: 3px;
+}
+
+/* Loader sequence — only when motion is allowed */
+@media (prefers-reduced-motion: no-preference) {
+  .cnmo-loader.is-running .cnmo-loader-logo {
+    animation: cnmoLoaderLogoIn 0.5s ease-out 0.2s forwards;
+  }
+
+  .cnmo-loader.is-running .cnmo-loader-name {
+    animation: cnmoLoaderTextUp 0.4s ease-out 0.7s forwards;
+  }
+
+  .cnmo-loader.is-running .cnmo-loader-bar-fill {
+    animation: cnmoLoaderBarFill 1.8s ease-in-out 1s forwards;
+  }
+
+  .cnmo-loader.is-running.is-exiting {
+    animation: cnmoLoaderSlideUp 0.7s ease-in-out 2.8s forwards;
+  }
+}
+
+@keyframes cnmoLoaderLogoIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes cnmoLoaderTextUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cnmoLoaderBarFill {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes cnmoLoaderSlideUp {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* ----------------------------------------------------------
+   PART 2A — SCROLL-TRIGGERED ANIMATIONS (initial hidden state)
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .anim-fade-up:not(.is-animated) {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .anim-fade-down:not(.is-animated) {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  .anim-from-left:not(.is-animated) {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+
+  .anim-from-right:not(.is-animated) {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+
+  .anim-fade-in:not(.is-animated) {
+    opacity: 0;
+  }
+
+  .anim-scale-up:not(.is-animated) {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  .anim-fade-up.is-animated {
+    animation: cnmoFadeUp 0.7s ease-out forwards;
+  }
+
+  .anim-fade-down.is-animated {
+    animation: cnmoFadeDown 0.7s ease-out forwards;
+  }
+
+  .anim-from-left.is-animated {
+    animation: cnmoFromLeft 0.7s ease-out forwards;
+  }
+
+  .anim-from-right.is-animated {
+    animation: cnmoFromRight 0.7s ease-out forwards;
+  }
+
+  .anim-fade-in.is-animated {
+    animation: cnmoFadeIn 0.8s ease forwards;
+  }
+
+  .anim-scale-up.is-animated {
+    animation: cnmoScaleUp 0.6s ease-out forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-up,
+  .anim-fade-down,
+  .anim-from-left,
+  .anim-from-right,
+  .anim-fade-in,
+  .anim-scale-up {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cnmoFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cnmoFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cnmoFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes cnmoFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes cnmoFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cnmoScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ----------------------------------------------------------
+   PART 2B — AMBIENT / CONTINUOUS ANIMATIONS
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .anim-float {
+    animation: cnmoFloat 3s ease-in-out infinite;
+  }
+
+  .anim-pulse-soft {
+    animation: cnmoPulseSoft 2s ease-in-out infinite;
+  }
+
+  .anim-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .anim-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 60%
+    );
+    transform: translateX(-120%);
+    animation: cnmoShimmer 2.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .anim-rotate-slow {
+    animation: cnmoRotateSlow 20s linear infinite;
+  }
+}
+
+@keyframes cnmoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes cnmoPulseSoft {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes cnmoShimmer {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes cnmoRotateSlow {
+  to { transform: rotate(360deg); }
+}
+
+/* ----------------------------------------------------------
+   PART 2C — HOVER / INTERACTION ANIMATIONS
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .anim-hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .anim-hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
+  }
+
+  .anim-hover-glow {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .anim-hover-glow:hover {
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.25), 0 8px 28px rgba(46, 125, 50, 0.35);
+  }
+
+  .anim-hover-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .anim-hover-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: #2e7d32;
+    transition: width 0.3s ease;
+  }
+
+  .anim-hover-underline:hover::after {
+    width: 100%;
+  }
+}

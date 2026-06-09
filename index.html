@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
 
@@ -132,7 +133,7 @@
           <div class="hero-text-wrap">
             <div class="hero-text-item active">
               <div class="hero-content">
-                <h1>Uniting the Nigerian Muslim Community Across the UK</h1>
+                <h1 class="anim-fade-up">Uniting the Nigerian Muslim Community Across the UK</h1>
                 <p>CNMO is the national Islamic umbrella body representing Nigerian Muslim organisations in the UK - fostering unity, faith, and service since our founding.</p>
               </div>
             </div>
@@ -158,7 +159,7 @@
               <p class="hero-pw-arabic" id="hp-arabic"></p>
               <p class="hero-pw-time" id="hp-time">--:--</p>
               <p class="hero-pw-countdown" id="hp-countdown">Loading...</p>
-              <a href="prayer-times.html" class="hero-pw-link">Full Schedule →</a>
+              <a href="prayer-times.html" class="hero-pw-link anim-scale-up anim-hover-glow anim-shimmer" data-delay="200">Full Schedule →</a>
             </div>
           </div>
 
@@ -197,7 +198,7 @@
         <p>The Council of Nigerian Muslim Organizations (CNMO) understands and believes that:</p>
       </div>
       <div class="welcome-body">
-        <div class="welcome-cards">
+        <div class="welcome-cards anim-from-left">
           <div class="welcome-card">
             <div class="welcome-card-num">01</div>
             <p>All sovereignty over the entire universe and whatever it contains belongs to Almighty Allah (SWT), and that Al-Islam is the true way of life given by Allah as He mentions in the Holy Qur'an, the final revelation sent for the guidance of mankind.</p>
@@ -211,7 +212,7 @@
             <p>The establishment of this Islamic Organization is necessary for the propagation of the religion of Al-Islam as given to us by Allah (SWT). We do hereby solemnly and voluntarily submit ourselves to Allah's will, and resolve to abide by the provisions of this constitution.</p>
           </div>
         </div>
-        <img src="images/welcome-community.jpg" alt="CNMO community members" class="welcome-img" style="object-fit:cover;border-radius:var(--border-radius);">
+        <img src="images/welcome-community.jpg" alt="CNMO community members" class="welcome-img anim-from-right" style="object-fit:cover;border-radius:var(--border-radius);">
       </div>
     </div>
   </section>
@@ -281,9 +282,9 @@
     <div class="container">
       <h2 class="section-title">Projects Spotlight</h2>
       <p class="section-subtitle">Making a difference through meaningful projects</p>
-      <div class="grid-3">
+      <div class="grid-3 anim-stagger-children">
 
-        <article class="card">
+        <article class="card anim-hover-lift">
           <img src="images/project-spread-islam.jpg" alt="Spread Islam Spread Positivity" class="card-img" style="height:200px;object-fit:cover;display:block;width:100%;">
           <div class="card-body">
             <h3 class="card-title">Spread Islam Spread Positivity</h3>
@@ -292,7 +293,7 @@
           </div>
         </article>
 
-        <article class="card">
+        <article class="card anim-hover-lift">
           <img src="images/project-conference.jpg" alt="London Conference on Islam and World" class="card-img" style="height:200px;object-fit:cover;display:block;width:100%;">
           <div class="card-body">
             <h3 class="card-title">London Conference on Islam and World</h3>
@@ -301,7 +302,7 @@
           </div>
         </article>
 
-        <article class="card">
+        <article class="card anim-hover-lift">
           <img src="images/project-newsletter.jpg" alt="CNMO E-Bulletin" class="card-img" style="height:200px;object-fit:cover;display:block;width:100%;">
           <div class="card-body">
             <h3 class="card-title">CNMO E-Bulletin</h3>
@@ -319,20 +320,20 @@
     <div class="container">
       <h2 class="section-title">Get Involved</h2>
       <p class="section-subtitle">Join the CNMO community and make a difference</p>
-      <div class="involve-grid">
-        <div class="involve-tile">
+      <div class="involve-grid anim-stagger-children">
+        <div class="involve-tile anim-hover-lift">
           <div class="involve-icon"><i class="fas fa-heart"></i></div>
           <h3>Become a Friend</h3>
           <p>Support CNMO as an individual ally. Your friendship helps us reach more Muslims and serve the community better.</p>
           <a href="become_friend.html" class="btn btn-outline">Join as Friend</a>
         </div>
-        <div class="involve-tile">
+        <div class="involve-tile anim-hover-lift">
           <div class="involve-icon"><i class="fas fa-users"></i></div>
           <h3>Become a Member</h3>
           <p>Join the council as an official member organisation and help shape the future of the Nigerian Muslim community in the UK.</p>
           <a href="become_member.html" class="btn btn-outline">Become a Member</a>
         </div>
-        <div class="involve-tile">
+        <div class="involve-tile anim-hover-lift">
           <div class="involve-icon"><i class="fas fa-hands-helping"></i></div>
           <h3>Volunteer</h3>
           <p>Offer your time and skills to support CNMO events, projects, and community initiatives across the UK.</p>
@@ -625,6 +626,8 @@
   </div>
 </div>
 
+<script src="js/animations.js"></script>
+<script src="js/loader.js"></script>
 <script src="js/main.js"></script>
 <script src="js/zakat.js"></script>
 <script>
