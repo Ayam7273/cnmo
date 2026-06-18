@@ -127,7 +127,7 @@
         <!-- Contact Form -->
         <div class="contact-form">
           <h3 style="color:var(--primary-green);margin-bottom:1.5rem;">Send a Message</h3>
-          <form data-validate id="contact-form">
+          <form action="/api/contact" method="POST" id="contact-form" enctype="multipart/form-data">
             <div class="form-group">
               <label for="full-name">Full Name <span style="color:#e53e3e;">*</span></label>
               <input type="text" id="full-name" name="full-name" placeholder="Your full name" required>
@@ -148,6 +148,7 @@
               <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
               <span class="form-error">This field is required.</span>
             </div>
+            <div class="g-recaptcha" data-sitekey="6Ldi9yYtAAAAAEHoOcZZ3Q4v29GVaCK0ViDLVmvb"></div>
             <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
               Send Message <i class="fas fa-paper-plane"></i>
             </button>
@@ -208,5 +209,45 @@
 
 <script src="js/animations.js"></script>
 <script src="js/main.js"></script>
+<script>
+document
+  .getElementById("contact-form")
+  .addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const captcha = grecaptcha.getResponse();
+
+    if (!captcha) {
+      alert("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
+    const data = {
+      fullName: document.getElementById("full-name").value,
+      email: document.getElementById("email").value,
+      subject: document.getElementById("subject").value,
+      message: document.getElementById("message").value,
+      captcha
+    };
+
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      form.reset();
+      grecaptcha.reset();
+      document.querySelector(".form-success").style.display = "block";
+    }
+  });
+</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
