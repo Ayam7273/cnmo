@@ -232,20 +232,28 @@ document
       captcha
     };
 
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
 
-    const result = await response.json();
+      const result = await response.json();
 
-    if (result.success) {
-      form.reset();
-      grecaptcha.reset();
-      document.querySelector(".form-success").style.display = "block";
+      if (result.success) {
+        e.target.reset();
+        grecaptcha.reset();
+        document.querySelector(".form-success").style.display = "block";
+      } else {
+        alert(result.message || "Failed to send message");
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred.");
     }
   });
 </script>
