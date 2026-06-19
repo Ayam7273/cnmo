@@ -228,7 +228,11 @@ contactForm.addEventListener("submit", async (e) => {
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(result.message || "Failed to send message");
+      console.log("API Response:", result);
+
+throw new Error(
+  result.error || result.message || "Failed to send message"
+);
     }
 
     contactForm.reset();
