@@ -195,9 +195,9 @@ document.querySelectorAll('.img-placeholder-inner svg').forEach(svg => {
 
 /* --- Contact Form Submission with reCAPTCHA --- */
 
-const form = document.getElementById("contact-form");
+const contactForm = document.getElementById("contact-form");
 
-form.addEventListener("submit", async (e) => {
+contactForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const captcha = grecaptcha.getResponse();
@@ -232,7 +232,7 @@ form.addEventListener("submit", async (e) => {
       throw new Error(result.message);
     }
 
-    form.reset();
+    contactForm.reset();
     grecaptcha.reset();
 
     document.querySelector(".form-success").style.display = "block";
