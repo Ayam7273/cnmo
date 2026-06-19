@@ -107,7 +107,7 @@ export default async function handler(req, res) {
         </div>
 
         <p style="margin-top:25px;">
-          Jazakum Allahu Khairan for reaching out to us.
+          Jazakumullahu Khairan for reaching out to us.
         </p>
 
         <p>

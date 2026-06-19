@@ -111,7 +111,7 @@
       <h2 class="section-title">Membership Application</h2>
       <p class="section-subtitle">Complete the form below to apply for CNMO membership</p>
       <div class="form-card" style="margin-top:2.5rem;">
-        <form data-validate id="member-form">
+        <form id="member-form">
           <div class="form-row">
             <div class="form-group">
               <label for="m-name">Full Name <span style="color:#e53e3e;">*</span></label>
@@ -145,6 +145,8 @@
             <textarea id="m-reason" placeholder="Tell us why you or your organisation would like to join CNMO..." required></textarea>
             <span class="form-error">This field is required.</span>
           </div>
+          <div class="g-recaptcha" data-sitekey="6LdfZygtAAAAACPlhfE8oPjHwf_Zy_prcj1FGgaC"></div>
+            <br>
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
             Submit Application <i class="fas fa-paper-plane"></i>
           </button>
@@ -201,7 +203,66 @@
   </div>
 </footer>
 
+<script>
+/* --- Membership Application Form --- */
+
+const memberForm = document.getElementById("member-form");
+
+if (memberForm) {
+  memberForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const captcha = grecaptcha.getResponse();
+
+    if (!captcha) {
+      alert("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
+    const payload = {
+      fullName: document.getElementById("m-name").value.trim(),
+      organisation: document.getElementById("m-org").value.trim(),
+      email: document.getElementById("m-email").value.trim(),
+      phone: document.getElementById("m-phone").value.trim(),
+      address: document.getElementById("m-address").value.trim(),
+      reason: document.getElementById("m-reason").value.trim(),
+      captcha
+    };
+
+    try {
+      const response = await fetch("/api/member", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message);
+      }
+
+      memberForm.reset();
+      grecaptcha.reset();
+
+      memberForm
+        .querySelector(".form-success")
+        .style.display = "block";
+
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  });
+}
+
+/* --- End Membership Application Form --- */
+
+</script>
 <script src="js/animations.js"></script>
 <script src="js/main.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
