@@ -168,6 +168,8 @@
             <label for="v-message">Additional Information</label>
             <textarea id="v-message" placeholder="Any other information you'd like us to know about you or your volunteering interests..."></textarea>
           </div>
+          <div class="g-recaptcha" data-sitekey="6LdfZygtAAAAACPlhfE8oPjHwf_Zy_prcj1FGgaC"></div>
+            <br>
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
             Register as Volunteer <i class="fas fa-hands-helping"></i>
           </button>
@@ -233,7 +235,66 @@
   </div>
 </footer>
 
+<script>
+/* --- Volunteer Registration Form --- */
+
+const volunteerForm = document.getElementById("volunteer-form");
+
+if (volunteerForm) {
+  volunteerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const captcha = grecaptcha.getResponse();
+
+    if (!captcha) {
+      alert("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
+    const payload = {
+      fullName: document.getElementById("v-name").value.trim(),
+      email: document.getElementById("v-email").value.trim(),
+      phone: document.getElementById("v-phone").value.trim(),
+      location: document.getElementById("v-location").value.trim(),
+      skills: document.getElementById("v-skills").value.trim(),
+      availability: document.getElementById("v-availability").value,
+      message: document.getElementById("v-message").value.trim(),
+      captcha
+    };
+
+    try {
+      const response = await fetch("/api/volunteer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message);
+      }
+
+      volunteerForm.reset();
+      grecaptcha.reset();
+
+      volunteerForm
+        .querySelector(".form-success")
+        .style.display = "block";
+
+    } catch (error) {
+      console.error("Volunteer Form Error:", error);
+      alert(error.message);
+    }
+  });
+}
+
+/* --- End Volunteer Registration Form --- */
+</script>
 <script src="js/animations.js"></script>
 <script src="js/main.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
