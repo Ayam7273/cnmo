@@ -73,11 +73,11 @@ export default async function handler(req, res) {
     });
 
     await transporter.sendMail({
-  from: `"CNMO UK" <${process.env.EMAIL_USER}>`,
-  to: email,
-  subject: "Thank You for Contacting CNMO UK",
-  html: `
-    <div style="font-family:Arial,Helvetica,sans-serif;max-width:650px;margin:auto;line-height:1.6;color:#333;">
+      from: `"CNMO UK" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "Thank You for Contacting CNMO UK",
+      html: `
+        <div style="font-family:Arial,Helvetica,sans-serif;max-width:650px;margin:auto;line-height:1.6;color:#333;">
       
       <div style="background:#0f5132;padding:20px;text-align:center;">
         <h1 style="color:#fff;margin:0;">
@@ -122,8 +122,8 @@ export default async function handler(req, res) {
       </div>
 
     </div>
-  `
-});
+      `
+    });
 
     return res.status(200).json({
       success: true
