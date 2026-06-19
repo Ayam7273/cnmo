@@ -191,3 +191,55 @@ const CAMERA_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" s
 document.querySelectorAll('.img-placeholder-inner svg').forEach(svg => {
   if (!svg.getAttribute('viewBox')) svg.outerHTML = CAMERA_SVG;
 });
+
+
+/* --- Contact Form Submission with reCAPTCHA --- */
+
+const contactForm = document.getElementById("contact-form");
+const successMessage = document.querySelector(".form-success");
+
+contactForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const captcha = grecaptcha.getResponse();
+
+  if (!captcha) {
+    alert("Please complete the reCAPTCHA verification.");
+    return;
+  }
+
+  const payload = {
+    fullName: document.getElementById("full-name").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    subject: document.getElementById("subject").value.trim(),
+    message: document.getElementById("message").value.trim(),
+    captcha
+  };
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "Failed to send message");
+    }
+
+    contactForm.reset();
+    grecaptcha.reset();
+
+    if (successMessage) {
+      successMessage.style.display = "block";
+    }
+
+  } catch (error) {
+    console.error("Contact form error:", error);
+    alert(error.message || "An error occurred while sending your message.");
+  }
+});
