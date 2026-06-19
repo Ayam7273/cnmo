@@ -242,3 +242,59 @@ form.addEventListener("submit", async (e) => {
     alert(error.message);
   }
 });
+/* --- End of Contact Form Submission with reCAPTCHA --- */
+
+/* --- Become Friend Form Validation --- */
+
+const friendForm = document.getElementById("friend-form");
+
+if (friendForm) {
+  friendForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const captcha = grecaptcha.getResponse();
+
+    if (!captcha) {
+      alert("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
+    const payload = {
+      fullName: document.getElementById("f-name").value.trim(),
+      email: document.getElementById("f-email").value.trim(),
+      phone: document.getElementById("f-phone").value.trim(),
+      location: document.getElementById("f-location").value.trim(),
+      message: document.getElementById("f-message").value.trim(),
+      captcha
+    };
+
+    try {
+      const response = await fetch("/api/friend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message);
+      }
+
+      friendForm.reset();
+      grecaptcha.reset();
+
+      friendForm
+        .querySelector(".form-success")
+        .style.display = "block";
+
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  });
+}
+
+/* --- End of Become Friend Form Validation --- */
