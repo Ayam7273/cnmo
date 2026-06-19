@@ -82,10 +82,20 @@ export default async function handler(req, res) {
     });
 
     const applicantEmail = transporter.sendMail({
-      from: `"CNMO UK" <${process.env.EMAIL_USER}>`,
+      from: `"CNMO UK" <noreply@gmail.com>`,
       to: email,
       subject: "CNMO Membership Application Received",
       html: `
+        <div style="font-family:Arial,Helvetica,sans-serif;max-width:650px;margin:auto;line-height:1.7;color:#333;">
+
+          <div style="background:#0f5132;padding:20px;text-align:center;">
+            <h1 style="margin:0;color:#fff;">
+              Welcome to CNMO UK
+            </h1>
+          </div>
+
+          <div style="padding:30px;">
+
         <p>Assalamu Alaikum ${fullName},</p>
 
         <p>
