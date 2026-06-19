@@ -125,9 +125,9 @@
         </div>
 
         <!-- Contact Form -->
-        <div class="contact-form" action="/api/contact" method="POST">
+        <div class="contact-form">
           <h3 style="color:var(--primary-green);margin-bottom:1.5rem;">Send a Message</h3>
-          <form id="contact-form">
+          <form id="contact-form" action="/api/contact" method="POST">
             <div class="form-group">
               <label for="full-name">Full Name <span style="color:#e53e3e;">*</span></label>
               <input type="text" id="full-name" name="full-name" placeholder="Your full name" required>
